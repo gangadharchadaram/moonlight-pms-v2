@@ -1,50 +1,43 @@
-// src/shared/components/crud/CrudPageLayout.jsx
+import { Box, Paper } from "@mui/material";
 
-import { Box, Paper, Stack } from "@mui/material";
-import PageHeader from "../common/PageHeader";
+const CrudPageLayout = ({
+    header,
+    toolbar,
+    children
+}) => {
 
-export default function CrudPageLayout({
-  title,
-  subtitle,
-  toolbar,
-  content,
-  actions,
-}) {
-  return (
-    <Stack spacing={3}>
-      <PageHeader
-        title={title}
-        subtitle={subtitle}
-        actions={actions}
-      />
+    return (
 
-      {toolbar && (
-        <Paper
-          elevation={0}
-          sx={{
-            p: 2,
-            borderRadius: 3,
-            border: "1px solid",
-            borderColor: "divider",
-          }}
-        >
-          {toolbar}
-        </Paper>
-      )}
+        <Box>
 
-      <Paper
-        elevation={0}
-        sx={{
-          borderRadius: 3,
-          border: "1px solid",
-          borderColor: "divider",
-          overflow: "hidden",
-        }}
-      >
-        <Box p={2}>
-          {content}
+            {header}
+
+            <Paper
+                elevation={1}
+                sx={{
+                    mt: 3,
+                    borderRadius: 3
+                }}
+            >
+
+                <Box
+                    sx={{
+                        p: 2
+                    }}
+                >
+
+                    {toolbar}
+
+                </Box>
+
+                {children}
+
+            </Paper>
+
         </Box>
-      </Paper>
-    </Stack>
-  );
-}
+
+    );
+
+};
+
+export default CrudPageLayout;

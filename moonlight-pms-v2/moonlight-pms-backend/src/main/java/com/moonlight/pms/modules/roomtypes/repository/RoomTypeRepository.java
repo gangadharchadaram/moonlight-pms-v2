@@ -8,15 +8,15 @@ import java.util.Optional;
 
 public interface RoomTypeRepository extends JpaRepository<RoomType, Long> {
 
-  Optional<RoomType> findByIdAndClient_Id(Long id, Long clientId);
+    Optional<RoomType> findByIdAndClient_Id(Long id, Long clientId);
 
-List<RoomType> findAllByClient_IdOrderByNameAsc(Long clientId);
+    List<RoomType> findAllByClient_IdOrderByNameAsc(Long clientId);
 
-boolean existsByClient_IdAndCode(Long clientId, String code);
+    boolean existsByClient_IdAndCode(Long clientId, String code);
 
-boolean existsByClient_IdAndCodeAndIdNot(
-        Long clientId,
-        String code,
-        Long id
-);
+    boolean existsByClient_IdAndCodeAndIdNot(
+            Long clientId,
+            String code,
+            Long id
+    );
 }

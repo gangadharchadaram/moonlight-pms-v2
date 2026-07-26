@@ -1,36 +1,35 @@
-// src/shared/components/common/PageHeader.jsx
+import {
+    Box,
+    Typography
+} from "@mui/material";
 
-import { Stack, Typography } from "@mui/material";
+const PageHeader = ({
+    title,
+    subtitle
+}) => {
 
-export default function PageHeader({
-  title,
-  subtitle,
-  actions,
-}) {
-  return (
-    <Stack
-      direction="row"
-      justifyContent="space-between"
-      alignItems="center"
-    >
-      <Stack spacing={0.5}>
-        <Typography
-          variant="h4"
-          fontWeight={700}
-        >
-          {title}
-        </Typography>
+    return (
 
-        {subtitle && (
-          <Typography
-            color="text.secondary"
-          >
-            {subtitle}
-          </Typography>
-        )}
-      </Stack>
+        <Box>
 
-      {actions}
-    </Stack>
-  );
-}
+            <Typography
+                variant="h4"
+                fontWeight={700}
+            >
+                {title}
+            </Typography>
+
+            <Typography
+                color="text.secondary"
+                mt={1}
+            >
+                {subtitle}
+            </Typography>
+
+        </Box>
+
+    );
+
+};
+
+export default PageHeader;

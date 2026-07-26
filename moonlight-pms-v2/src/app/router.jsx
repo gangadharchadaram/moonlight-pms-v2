@@ -5,74 +5,80 @@ import LoginPage from "@/modules/auth/pages/Login";
 import SignupPage from "@/modules/auth/pages/SignupPage";
 
 import DashboardLayout from "@/shared/layouts/DashboardLayout";
+
 import DashboardPage from "@/modules/dashboard/pages/DashboardPage";
 import GuestListPage from "@/modules/guests/pages/GuestListPage";
+import RoomsPage from "@/modules/rooms/pages/RoomsPage";
 
 export default function AppRouter() {
-  return (
-    <Routes>
+    return (
+        <Routes>
 
-      {/* ===================== */}
-      {/* Authentication Routes */}
-      {/* ===================== */}
-      <Route element={<AuthLayout />}>
-        <Route index element={<Navigate to="/login" replace />} />
+            {/* ========================= */}
+            {/* Authentication */}
+            {/* ========================= */}
 
-        <Route
-          path="/login"
-          element={<LoginPage />}
-        />
+            <Route element={<AuthLayout />}>
 
-        <Route
-          path="/signup"
-          element={<SignupPage />}
-        />
+                <Route
+                    path="/login"
+                    element={<LoginPage />}
+                />
 
-        {/* Optional: supports /auth/signup */}
-        <Route
-          path="/auth/signup"
-          element={<SignupPage />}
-        />
+                <Route
+                    path="/signup"
+                    element={<SignupPage />}
+                />
 
-        {/* Optional: supports /auth/login */}
-        <Route
-          path="/auth/login"
-          element={<LoginPage />}
-        />
-      </Route>
+                <Route
+                    path="/auth/login"
+                    element={<LoginPage />}
+                />
 
-      {/* ===================== */}
-      {/* Dashboard */}
-      {/* ===================== */}
-      <Route
-        path="/dashboard"
-        element={
-          <DashboardLayout>
-            <DashboardPage />
-          </DashboardLayout>
-        }
-      />
+                <Route
+                    path="/auth/signup"
+                    element={<SignupPage />}
+                />
 
-      {/* ===================== */}
-      {/* Guests */}
-      {/* ===================== */}
-      <Route
-        path="/guests"
-        element={
-          <DashboardLayout>
-            <GuestListPage />
-          </DashboardLayout>
-        }
-      />
+            </Route>
 
-      {/* ===================== */}
-      {/* 404 */}
-      {/* ===================== */}
-      <Route
-        path="*"
-        element={<Navigate to="/login" replace />}
-      />
+            {/* ========================= */}
+            {/* Dashboard Layout */}
+            {/* ========================= */}
 
-    </Routes>
-  );
+            <Route element={<DashboardLayout />}>
+
+                <Route
+                    path="/dashboard"
+                    element={<DashboardPage />}
+                />
+
+                <Route
+                    path="/guests"
+                    element={<GuestListPage />}
+                />
+
+                <Route
+                    path="/rooms"
+                    element={<RoomsPage />}
+                />
+
+            </Route>
+
+            {/* ========================= */}
+            {/* Redirects */}
+            {/* ========================= */}
+
+            <Route
+                path="/"
+                element={<Navigate to="/dashboard" replace />}
+            />
+
+            <Route
+                path="*"
+                element={<Navigate to="/dashboard" replace />}
+            />
+
+        </Routes>
+    );
 }

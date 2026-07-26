@@ -7,14 +7,28 @@ import java.util.List;
 
 public interface RoomTypeService {
 
-    RoomTypeResponse createRoomType(Long clientId, RoomTypeRequest request);
+    RoomTypeResponse createRoomType(
+            Long clientId,
+            RoomTypeRequest request
+    );
 
-    RoomTypeResponse updateRoomType(Long clientId, Long roomTypeId, RoomTypeRequest request);
+    RoomTypeResponse updateRoomType(
+            Long clientId,
+            Long roomTypeId,
+            RoomTypeRequest request
+    );
 
-    void deleteRoomType(Long clientId, Long roomTypeId);
+    void deleteRoomType(
+            Long clientId,
+            Long roomTypeId
+    );
 
-    RoomTypeResponse getRoomTypeById(Long clientId, Long roomTypeId);
+    RoomTypeResponse getRoomTypeById(
+            Long clientId,
+            Long roomTypeId
+    );
 
-    List<RoomTypeResponse> getAllRoomTypes(Long clientId);
-
+    List<RoomTypeResponse> getAllRoomTypes(
+            Long clientId
+    );
 }

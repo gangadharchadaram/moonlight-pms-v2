@@ -9,8 +9,8 @@ import com.moonlight.pms.modules.roomtypes.mapper.RoomTypeMapper;
 import com.moonlight.pms.modules.roomtypes.repository.RoomTypeRepository;
 import com.moonlight.pms.modules.roomtypes.service.RoomTypeService;
 import com.moonlight.pms.repository.ClientRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -33,88 +33,83 @@ public class RoomTypeServiceImpl implements RoomTypeService {
     }
 
     @Override
-public RoomTypeResponse createRoomType(Long clientId,
-                                       RoomTypeRequest request) {
+    public RoomTypeResponse createRoomType(Long clientId, RoomTypeRequest request) {
 
-    if (repository.existsByClient_IdAndCode(clientId, request.getCode())) {
-        throw new IllegalArgumentException(
-                "Room type code already exists."
-        );
+        if (repository.existsByClient_IdAndCode(clientId, request.getCode())) {
+            throw new IllegalArgumentException("Room Type code already exists.");
+        }
+
+        Client client = clientRepository.findById(clientId)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Client not found."));
+
+        RoomType roomType = mapper.toEntity(request);
+        roomType.setClient(client);
+
+        RoomType savedRoomType = repository.save(roomType);
+
+        return mapper.toResponse(savedRoomType);
     }
 
-    Client client = clientRepository.findById(clientId)
-            .orElseThrow(() ->
-                    new ResourceNotFoundException("Client not found."));
+    @Override
+    public RoomTypeResponse updateRoomType(
+            Long clientId,
+            Long roomTypeId,
+            RoomTypeRequest request) {
 
-    RoomType roomType = mapper.toEntity(request);
+        RoomType roomType = repository
+                .findByIdAndClient_Id(roomTypeId, clientId)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Room Type not found."));
 
-    roomType.setClient(client);
+        if (repository.existsByClient_IdAndCodeAndIdNot(
+                clientId,
+                request.getCode(),
+                roomTypeId)) {
 
-    RoomType saved = repository.save(roomType);
+            throw new IllegalArgumentException("Room Type code already exists.");
+        }
 
-    return mapper.toResponse(saved);
-}
+        mapper.updateEntity(roomType, request);
 
-@Override
-public RoomTypeResponse updateRoomType(
-        Long clientId,
-        Long roomTypeId,
-        RoomTypeRequest request) {
+        RoomType updatedRoomType = repository.save(roomType);
 
-    RoomType roomType = repository
-            .findByIdAndClient_Id(roomTypeId, clientId)
-            .orElseThrow(() ->
-                    new ResourceNotFoundException("Room Type not found."));
-
-    if (repository.existsByClient_IdAndCodeAndIdNot(
-            clientId,
-            request.getCode(),
-            roomTypeId)) {
-
-        throw new IllegalArgumentException(
-                "Room type code already exists."
-        );
+        return mapper.toResponse(updatedRoomType);
     }
 
-    mapper.updateEntity(roomType, request);
+    @Override
+    public void deleteRoomType(Long clientId, Long roomTypeId) {
 
-    RoomType updated = repository.save(roomType);
+        RoomType roomType = repository
+                .findByIdAndClient_Id(roomTypeId, clientId)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Room Type not found."));
 
-    return mapper.toResponse(updated);
-}
+        repository.delete(roomType);
+    }
 
-@Override
-public void deleteRoomType(Long clientId,
-                           Long roomTypeId) {
+    @Override
+    @Transactional(readOnly = true)
+    public RoomTypeResponse getRoomTypeById(
+            Long clientId,
+            Long roomTypeId) {
 
-    RoomType roomType = repository
-            .findByIdAndClient_Id(roomTypeId, clientId)
-            .orElseThrow(() ->
-                    new ResourceNotFoundException("Room Type not found."));
+        RoomType roomType = repository
+                .findByIdAndClient_Id(roomTypeId, clientId)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Room Type not found."));
 
-    repository.delete(roomType);
-}
+        return mapper.toResponse(roomType);
+    }
 
-@Override
-public RoomTypeResponse getRoomTypeById(
-        Long clientId,
-        Long roomTypeId) {
+    @Override
+    @Transactional(readOnly = true)
+    public List<RoomTypeResponse> getAllRoomTypes(Long clientId) {
 
-    RoomType roomType = repository
-            .findByIdAndClient_Id(roomTypeId, clientId)
-            .orElseThrow(() ->
-                    new ResourceNotFoundException("Room Type not found."));
+        List<RoomType> roomTypes =
+                repository.findAllByClient_IdOrderByNameAsc(clientId);
 
-    return mapper.toResponse(roomType);
-}
-
-@Override
-public List<RoomTypeResponse> getAllRoomTypes(Long clientId) {
-
-    List<RoomType> roomTypes =
-            repository.findAllByClient_IdOrderByNameAsc(clientId);
-
-    return mapper.toResponseList(roomTypes);
-}
+        return mapper.toResponseList(roomTypes);
+    }
 
 }

@@ -1,30 +1,33 @@
 import { useState } from "react";
+import { Outlet } from "react-router-dom";
+
 import Sidebar from "@/shared/components/layout/Sidebar";
 import Header from "@/shared/components/layout/Header";
 
-export default function DashboardLayout({ children }) {
+export default function DashboardLayout() {
 
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+    const [sidebarOpen, setSidebarOpen] = useState(true);
 
-  return (
-    <div className="flex h-screen bg-slate-100">
+    return (
 
-      <Sidebar
-        open={sidebarOpen}
-      />
+        <div className="flex h-screen bg-slate-100">
 
-      <div className="flex flex-1 flex-col overflow-hidden">
+            <Sidebar open={sidebarOpen} />
 
-        <Header
-          onMenuClick={() => setSidebarOpen(prev => !prev)}
-        />
+            <div className="flex flex-1 flex-col overflow-hidden">
 
-        <main className="flex-1 overflow-y-auto p-6">
-          {children}
-        </main>
+                <Header
+                    onMenuClick={() => setSidebarOpen(prev => !prev)}
+                />
 
-      </div>
+                <main className="flex-1 overflow-auto p-6">
+                    <Outlet />
+                </main>
 
-    </div>
-  );
+            </div>
+
+        </div>
+
+    );
+
 }
