@@ -4,10 +4,15 @@ const BASE_URL = "/room-types";
 
 export const roomTypeApi = {
 
-    getAll: async () => {
-        const response = await apiClient.get(BASE_URL);
-        return response.data.data;
-    },
+getAll: async () => {
+    console.log("Calling Room Type API...");
+
+    const response = await apiClient.get("/room-types");
+
+    console.log(response);
+
+    return response.data.data;
+},
 
     getById: async (id) => {
         const response = await apiClient.get(`${BASE_URL}/${id}`);

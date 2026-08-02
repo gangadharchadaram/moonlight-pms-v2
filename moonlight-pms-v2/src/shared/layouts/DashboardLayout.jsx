@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
 
-import Sidebar from "@/shared/components/layout/Sidebar";
+import Sidebar from "@/shared/components/navigation/Sidebar";
 import Header from "@/shared/components/layout/Header";
 
 export default function DashboardLayout() {
