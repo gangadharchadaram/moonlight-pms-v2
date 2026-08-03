@@ -43,14 +43,14 @@ public class Room {
     @JoinColumn(name = "room_type_id", nullable = false)
     private RoomType roomType;
 
-    @Column(name = "building", length = 100)
-    private String building;
+    @Column(name = "building_id")
+    private Long buildingId;
 
-    @Column(name = "wing", length = 100)
-    private String wing;
+    @Column(name = "wing_id")
+    private Long wingId;
 
-    @Column(name = "floor")
-    private Integer floor;
+    @Column(name = "floor_id")
+    private Long floorId;
 
     @Column(name = "adult_capacity")
     private Integer adultCapacity;

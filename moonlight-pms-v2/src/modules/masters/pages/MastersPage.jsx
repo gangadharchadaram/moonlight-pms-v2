@@ -1,56 +1,44 @@
-import Grid from "@mui/material/Grid";
-
 import PageHeader from "@/shared/components/common/PageHeader";
-
-import CrudPageLayout from "@/shared/components/crud/CrudPageLayout";
 
 import MasterCard from "../components/MasterCard";
 
-import { masterItems } from "../constants/masterItems";
+import { masterModules } from "../constants/masterModules";
 
 const MastersPage = () => {
 
     return (
 
-        <CrudPageLayout
+        <>
 
-            header={
+            <PageHeader
 
-                <PageHeader
-                    title="Masters"
-                    subtitle="Configure hotel master data."
-                />
+                title="Masters"
 
-            }
+                subtitle="Configure hotel master data."
 
-        >
+            />
 
-            <Grid
-                container
-                spacing={3}
-            >
+            <div className="grid grid-cols-1 gap-8 mt-8 md:grid-cols-2 xl:grid-cols-4">
 
-                {masterItems.map((item) => (
+                {
 
-                    <Grid
-                        key={item.title}
-                        size={{
-                            xs:12,
-                            sm:6,
-                            md:4,
-                            lg:3
-                        }}
-                    >
+                    masterModules.map(module => (
 
-                        <MasterCard item={item}/>
+                        <MasterCard
 
-                    </Grid>
+                            key={module.path}
 
-                ))}
+                            {...module}
 
-            </Grid>
+                        />
 
-        </CrudPageLayout>
+                    ))
+
+                }
+
+            </div>
+
+        </>
 
     );
 

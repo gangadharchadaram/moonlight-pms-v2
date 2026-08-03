@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import Badge from "@mui/material/Badge";
 
 const SidebarSubItem = ({ item }) => {
 
@@ -7,14 +8,15 @@ const SidebarSubItem = ({ item }) => {
         <NavLink
             to={item.path}
             className={({ isActive }) => `
-                flex items-center
+                flex
+                items-center
+                justify-between
                 rounded-lg
                 py-2
                 pl-14
                 pr-4
                 text-sm
                 transition-all
-                duration-200
 
                 ${
                     isActive
@@ -23,7 +25,22 @@ const SidebarSubItem = ({ item }) => {
                 }
             `}
         >
-            {item.title}
+
+            <span>
+
+                {item.title}
+
+            </span>
+
+            {item.badge > 0 && (
+
+                <Badge
+                    badgeContent={item.badge}
+                    color="error"
+                />
+
+            )}
+
         </NavLink>
 
     );

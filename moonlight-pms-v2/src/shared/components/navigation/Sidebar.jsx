@@ -29,7 +29,7 @@ export default function Sidebar({ open }) {
 
             <AppLogo open={open} />
 
-             <div className="flex-1 overflow-y-auto overflow-x-visible py-4">
+             \<div className="flex-1 overflow-y-auto overflow-x-visible py-4">
 
                 <nav className="space-y-2 px-3">
 

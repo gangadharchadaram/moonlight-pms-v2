@@ -101,7 +101,22 @@ const menu = [
             {
                 title: "Settings",
                 path: "/settings"
-            }
+            },
+            {
+    title: "Reservations",
+    path: "/reservations",
+    badge: 12
+},
+{
+    title: "Front Desk",
+    path: "/frontdesk",
+    badge: 3
+},
+{
+    title: "Housekeeping",
+    path: "/housekeeping",
+    badge: 5
+},
         ]
     }
 

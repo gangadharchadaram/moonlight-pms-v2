@@ -1,0 +1,17 @@
+ALTER TABLE rooms
+ADD COLUMN building_id BIGINT;
+
+ALTER TABLE rooms
+ADD COLUMN wing_id BIGINT;
+
+ALTER TABLE rooms
+ADD COLUMN floor_id BIGINT;
+
+ALTER TABLE rooms
+DROP COLUMN building;
+
+ALTER TABLE rooms
+DROP COLUMN wing;
+
+ALTER TABLE rooms
+DROP COLUMN floor;

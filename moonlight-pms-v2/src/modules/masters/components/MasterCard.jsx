@@ -1,80 +1,76 @@
-import {
-    Card,
-    CardActionArea,
-    CardContent,
-    Typography,
-    Box
-} from "@mui/material";
-
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-
+import { ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-const MasterCard = ({ item }) => {
+const MasterCard = ({
+    title,
+    description,
+    icon: Icon,
+    path,
+    color,
+}) => {
 
     const navigate = useNavigate();
 
-    const Icon = item.icon;
-
     return (
 
-        <Card
-            elevation={2}
-            sx={{
-                borderRadius: 3,
-                transition: ".25s",
-                "&:hover": {
-                    transform: "translateY(-5px)",
-                    boxShadow: 8
-                }
-            }}
+        <div
+            onClick={() => navigate(path)}
+            className="
+                cursor-pointer
+                rounded-2xl
+                border
+                border-gray-200
+                bg-white
+                p-6
+                shadow-sm
+                transition-all
+                duration-300
+                hover:-translate-y-1
+                hover:shadow-xl
+            "
         >
 
-            <CardActionArea
-                onClick={() => navigate(item.path)}
+            <div
+                className={`
+                    flex
+                    h-14
+                    w-14
+                    items-center
+                    justify-center
+                    rounded-xl
+                    text-white
+                    ${color}
+                `}
             >
 
-                <CardContent>
+                <Icon size={28} />
 
-                    <Box
-                        display="flex"
-                        justifyContent="space-between"
-                    >
+            </div>
 
-                        <Icon
-                            color="primary"
-                            sx={{ fontSize: 42 }}
-                        />
+            <h2 className="mt-5 text-lg font-semibold">
 
-                        <ArrowForwardIosIcon
-                            color="disabled"
-                        />
+                {title}
 
-                    </Box>
+            </h2>
 
-                    <Typography
-                        mt={3}
-                        variant="h6"
-                        fontWeight={600}
-                    >
+            <p className="mt-2 text-sm text-gray-500">
 
-                        {item.title}
+                {description}
 
-                    </Typography>
+            </p>
 
-                    <Typography
-                        color="text.secondary"
-                    >
+            <div className="mt-6 flex items-center text-blue-600 font-medium">
 
-                        {item.description}
+                Open
 
-                    </Typography>
+                <ArrowRight
+                    className="ml-2"
+                    size={18}
+                />
 
-                </CardContent>
+            </div>
 
-            </CardActionArea>
-
-        </Card>
+        </div>
 
     );
 

@@ -24,23 +24,23 @@ public class RoomRequest {
     @NotNull(message = "Room Type is required")
     private Long roomTypeId;
 
-    private String building;
+    @NotNull(message = "Building is required")
+    private Long buildingId;
 
-    private String wing;
+    private Long wingId;
 
-    @Min(value = 0, message = "Floor cannot be negative")
-    private Integer floor;
+    private Long floorId;
 
-    @NotNull
-    @Min(value = 1)
+    @NotNull(message = "Adult Capacity is required")
+    @Min(value = 1, message = "Adult Capacity must be at least 1")
     private Integer adultCapacity;
 
-    @NotNull
-    @Min(value = 0)
+    @NotNull(message = "Child Capacity is required")
+    @Min(value = 0, message = "Child Capacity cannot be negative")
     private Integer childCapacity;
 
-    @NotNull
-    @Min(value = 1)
+    @NotNull(message = "Bed Count is required")
+    @Min(value = 1, message = "Bed Count must be at least 1")
     private Integer bedCount;
 
     @NotNull(message = "Room Status is required")
@@ -49,9 +49,11 @@ public class RoomRequest {
     @NotNull(message = "Housekeeping Status is required")
     private HousekeepingStatus housekeepingStatus;
 
-    private Boolean smokingAllowed;
+    @Builder.Default
+    private Boolean smokingAllowed = false;
 
-    private Boolean active;
+    @Builder.Default
+    private Boolean active = true;
 
     private String description;
 }

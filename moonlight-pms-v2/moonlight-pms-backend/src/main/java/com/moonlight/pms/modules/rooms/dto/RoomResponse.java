@@ -24,11 +24,14 @@ public class RoomResponse {
 
     private String roomTypeName;
 
-    private String building;
+   private Long buildingId;
+private String buildingName;
 
-    private String wing;
+private Long wingId;
+private String wingName;
 
-    private Integer floor;
+private Long floorId;
+private String floorName;
 
     private Integer adultCapacity;
 
